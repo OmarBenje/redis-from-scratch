@@ -1,0 +1,12 @@
+gitignore
+# Produits de compilation
+*.o
+*.d
+/server
+
+# Éditeur
+.idea/
+
+# Debug
+vgcore.*
+core    
