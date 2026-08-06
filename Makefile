@@ -1,5 +1,6 @@
 CC := gcc
-CFLAGS := -Wall -Wextra -Werror -g -std=c11
+CFLAGS := -Wall -Wextra -Werror -g -std=c11 -fsanitize=address,undefined
+LDFLAGS := -fsanitize=address,undefined
 TARGET := server
 SRCS := main.c
 OBJS := $(SRCS:.c=.o)
@@ -10,7 +11,7 @@ HEADERS :=
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) -o $(TARGET) $^
+	$(CC) $(LDFLAGS) -o $@ $^
 
 %.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@

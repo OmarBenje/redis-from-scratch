@@ -1,4 +1,3 @@
-gitignore
 # Produits de compilation
 *.o
 *.d
@@ -9,4 +8,4 @@ gitignore
 
 # Debug
 vgcore.*
-core    
+core
