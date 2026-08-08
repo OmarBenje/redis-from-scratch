@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <netinet/in.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define PORT 6379
 #define BACKLOG 128 // combien de connexions le noyau garde en attente pendant que ton programme est occupé ailleurs
@@ -55,6 +56,15 @@ int main(void) {
         ssize_t rc = read(client_fd, buffer, TAILLE_BUFFER);
         if (rc > 0) {
             printf("reçu %zd octets\n", rc);
+            char *fin;
+            long n = strtol(buffer + 1, &fin, 10);
+            printf("%ld\n", n);
+
+            char *fin2;
+            long longueur = strtol(fin + 3, &fin2, 10);
+            printf("%ld\n", longueur);
+
+
         }
         else if (rc == 0) {
             break;
