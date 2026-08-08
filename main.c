@@ -60,11 +60,14 @@ int main(void) {
             long n = strtol(buffer + 1, &fin, 10);
             printf("%ld\n", n);
 
-            char *fin2;
-            long longueur = strtol(fin + 3, &fin2, 10);
-            printf("%ld\n", longueur);
+            for (int i = 0; i < n; i++) {
+                char *fin3;
+                long longueur = strtol(fin + 3, &fin3, 10);
+                fin = fin3 + (int) longueur + 2;
+                printf("%.*s\n", (int) longueur, fin3 + 2);
 
 
+            }
         }
         else if (rc == 0) {
             break;
