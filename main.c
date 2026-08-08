@@ -53,23 +53,21 @@ int main(void) {
     char buffer[TAILLE_BUFFER];
 
     while (1) {
-        ssize_t rc = read(client_fd, buffer, TAILLE_BUFFER);
-        if (rc > 0) {
-            printf("reçu %zd octets\n", rc);
-            char *fin;
-            long n = strtol(buffer + 1, &fin, 10);
-            printf("%ld\n", n);
+        ssize_t bytes_read = read(client_fd, buffer, TAILLE_BUFFER);
+        if (bytes_read > 0) {
+            printf("reçu %zd octets\n", bytes_read);
+            char *cursor;
+            long arg_count = strtol(buffer + 1, &cursor, 10);
+            printf("%ld\n", arg_count);
 
-            for (int i = 0; i < n; i++) {
-                char *fin3;
-                long longueur = strtol(fin + 3, &fin3, 10);
-                fin = fin3 + (int) longueur + 2;
-                printf("%.*s\n", (int) longueur, fin3 + 2);
-
-
+            for (int i = 0; i < arg_count; i++) {
+                char *length_end;
+                long length = strtol(cursor + 3, &length_end, 10);
+                cursor = length_end + (int) length + 2;
+                printf("%.*s\n", (int) length, length_end + 2);
             }
         }
-        else if (rc == 0) {
+        else if (bytes_read == 0) {
             break;
         }
         else {
@@ -82,4 +80,3 @@ int main(void) {
     close(client_fd);
     return 0;
 }
-
