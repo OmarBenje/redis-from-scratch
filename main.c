@@ -66,6 +66,13 @@ int main(void) {
                 cursor = length_end + (int) length + 2;
                 printf("%.*s\n", (int) length, length_end + 2);
             }
+
+            char msg[] = "+PONG\r\n";
+            ssize_t bytes_write = write(client_fd, msg, sizeof(msg) - 1);
+            if (bytes_write == -1) {
+                perror("write");
+                break;
+            }
         }
         else if (bytes_read == 0) {
             break;
